@@ -2,29 +2,46 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <script src="ui.js" defer></script>
     <script src="jumpingNinja.js" defer></script>
     <link rel="stylesheet" href="./style.css">
-    <title>Jumping Runner</title>
+    <title>Samurai Jack</title>
 </head>
 <body>
     <header>
-        <h1>Jump Runner</h1>
+        <h1>Samurai Jack</h1>
         <p>Jump over obstacles and earn points!</p>
     </header>
-  <main>
-     <section aria-labelledby="game-heading">
-        <h2 id="game-heading">Game Area</h2>
-        <p>Press Spacebar or Arrrow Up to jump</p>
-        <p>
-            Score: <output id="score">0</output>
-        </p>
-        <div id="game-area" aria-label="Jump Runner playing field"></div>
-        <p id="game-message" role="status">Press Start Game to begin</p>
-        <button id="startBtn" type="button">Start Game</button>
-        
-     </section>
-  </main>
-  <footer>Jump Runner- Javascript Game</footer>
+    <main>
+        <section aria-labelledby="game-heading">
+            <h2 id="game-heading" class="sr-only">Game Area</h2>
+            <p>Press Spacebar or Arrow Up to jump</p>
+
+            <div id="game">
+                <output id="score">0</output>
+                <div id="game-area" aria-label="Jump Runner playing field">
+                    <div id="player" role="img" aria-label="Samurai"></div>
+                </div>
+                <div id="ground"></div>
+
+                <div id="start-screen" class="screen hidden">
+                    <h1>Samurai Jack</h1>
+                    <p>Press Space or tap to start</p>
+                </div>
+
+                <div id="game-over-screen" class="screen hidden">
+                    <h1>Game Over</h1>
+                    <p>Score: <span id="final-score">0</span></p>
+                    <p>Best: <span id="high-score">0</span></p>
+                    <p>Press Space or tap to play again</p>
+                </div>
+            </div>
+
+            <p id="game-message" role="status">Press Start Game to begin</p>
+            <button id="startBtn" type="button">Start Game</button>
+        </section>
+    </main>
+    <footer>Samurai Jack - Javascript Game</footer>
 </body>
 </html>

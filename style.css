@@ -1,37 +1,198 @@
-#game-area{
-    position: relative;
-    width: 1000%;
-    max-width: 800px;
-    height: 300px;
-    margin: 20px auto;
+:root {
+  --bg: #f3e9ff;
+  --ink: #2a1647;
+  --accent: #ff3b7f;
+  --sky-top: #ff9a5a;
+  --sky-bottom: #ffd9a0;
+  --ground: #3a1c5c;
 
-    background-color: #e0f2fe;
-    border: 2px solid #64748b;
-    border-bottom: 4px solid #334155;
+  --ground-h: 80px;
+  --player-w: 60px;
+  --player-h: 90px;
+  --obstacle-w: 30px;
 
-    overflow: hidden;
+  color-scheme: light dark;
 }
 
-#player{
-    position: absolute;
-
-    width: 40px;
-    height: 40px;
-
-    left: 40px;
-    bottom: 0;
-
-    background-color: #2563eb;
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #120a22;
+    --ink: #f1e8ff;
+    --accent: #ff4f8f;
+    --sky-top: #5b2a86;
+    --sky-bottom: #ff7a59;
+    --ground: #0b0518;
+  }
 }
 
-.obstacle{
-    position: absolute;
+:root[data-theme="dark"] {
+  --bg: #120a22;
+  --ink: #f1e8ff;
+  --accent: #ff4f8f;
+  --sky-top: #5b2a86;
+  --sky-bottom: #ff7a59;
+  --ground: #0b0518;
+}
 
-    width: 25px;
-    height: 45px;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
-    right: 0;
-    bottom: 0;
+html,
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Trebuchet MS", Verdana, sans-serif;
+}
 
-    background-color: #15803d;
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 12px;
+  padding-top: max(12px, env(safe-area-inset-top));
+  padding-bottom: max(12px, env(safe-area-inset-bottom));
+}
+
+header,
+main,
+footer {
+  width: min(100%, 800px);
+  text-align: center;
+}
+
+header h1 {
+  margin: 8px 0 0;
+  color: var(--accent);
+}
+
+header p,
+main p {
+  margin: 6px 0;
+}
+
+footer {
+  margin-top: auto;
+  padding-top: 12px;
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+#startBtn {
+  margin: 8px 0;
+  padding: 10px 24px;
+  font: inherit;
+  font-weight: bold;
+  color: #fff;
+  background: var(--accent);
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#game {
+  position: relative;
+  width: min(100%, 800px);
+  aspect-ratio: 2 / 1;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 14px;
+  background: linear-gradient(var(--sky-top), var(--sky-bottom));
+  box-shadow: 0 8px 30px rgba(255, 59, 127, 0.25);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+#game-area {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: var(--ground-h);
+  overflow: hidden;
+}
+
+#ground {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--ground-h);
+  background: var(--ground);
+  border-top: 4px solid var(--accent);
+}
+
+#player {
+  position: absolute;
+  left: 60px;
+  bottom: 0;
+  width: var(--player-w);
+  height: var(--player-h);
+  background: url("samurai.svg") center / contain no-repeat;
+  pointer-events: none;
+}
+
+.obstacle {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: var(--obstacle-w);
+  height: 40px;
+  background: var(--accent);
+  border-radius: 4px 4px 0 0;
+}
+
+#score {
+  position: absolute;
+  top: 10px;
+  right: 16px;
+  z-index: 2;
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.screen {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 16px;
+  text-align: center;
+  color: #fff;
+  background: rgba(18, 10, 34, 0.7);
+}
+
+.screen h1 {
+  margin: 0;
+  font-size: clamp(24px, 5vw, 40px);
+  color: var(--accent);
+}
+
+.screen p {
+  margin: 4px 0;
+  font-size: clamp(14px, 2.5vw, 18px);
+}
+
+.hidden {
+  display: none;
 }
