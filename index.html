@@ -1,32 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Samurai Jack</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="jumpingNinja.js" defer></script>
+    <link rel="stylesheet" href="./style.css">
+    <title>Jumping Runner</title>
 </head>
 <body>
-<div id="game">
-  <div id="score">0</div>
-  <div id="player"><img src="samurai.svg" alt="Samurai"></div>
-  <div id="ground"></div>
-
-  <div id="start-screen" class="screen">
-    <h1>Samurai Jack</h1>
-    <p>Press Space or tap to start</p>
-  </div>
-
-  <div id="game-over-screen" class="screen hidden">
-    <h1>Game Over</h1>
-    <p>Score: <span id="final-score">0</span></p>
-    <p>Best: <span id="high-score">0</span></p>
-    <p>Press Space or tap to play again</p>
-  </div>
-</div>
-
-<script src="player.js"></script>
-<script src="ui.js"></script>
-<script src="game.js"></script>
+    <header>
+        <h1>Jump Runner</h1>
+        <p>Jump over obstacles and earn points!</p>
+    </header>
+  <main>
+     <section aria-labelledby="game-heading">
+        <h2 id="game-heading">Game Area</h2>
+        <p>Press Spacebar or Arrrow Up to jump</p>
+        <p>
+            Score: <output id="score">0</output>
+        </p>
+        <div id="game-area" aria-label="Jump Runner playing field"></div>
+        <p id="game-message" role="status">Press Start Game to begin</p>
+        <button id="startBtn" type="button">Start Game</button>
+        
+     </section>
+  </main>
+  <footer>Jump Runner- Javascript Game</footer>
 </body>
 </html>
