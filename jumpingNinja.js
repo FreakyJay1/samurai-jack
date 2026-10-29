@@ -1,4 +1,6 @@
 const gameArea = document.querySelector("#game-area");
+const obstacles = [];
+const obstacleSpeed = 250; 
 
 let playerY = 0;
 let velocityY = 0;
@@ -22,10 +24,20 @@ function createPlayer(){
 }
 
 function createObstacle(){
-   const obstacle = document.createElement("div");
+   const element = document.createElement("div");
 
-   obstacle.classList.add("obstacle");
-   gameArea.appendChild(obstacle);
+   element.classList.add("obstacle");
+   gameArea.appendChild(element);
+   
+   const obstacle ={
+    element: element,
+    x: gameArea.clientWidth,
+    width: 25
+   }
+
+   obstacles.push(obstacle);
+
+   element.style.left = `${obstacle.x}px`
 
    return obstacle;
 }
@@ -49,6 +61,36 @@ function updatePlayer(dt){
 
     player.style.bottom = `${playerY}px`;
 
+}
+function updateObstacles(dt) {
+    obstacles.forEach(obstacle =>{
+        obstacle.x -= obstacleSpeed * dt;
+        obstacle.element.style.left = `${obstacle.x}px`
+    });
+}
+
+function removeObstacle(index) {
+    const obstacle = obstacles[index];
+
+    obstacle.element.remove();
+    
+    obstacles.splice(index,1);
+
+}
+
+function cleanUpObstacles() {
+    
+    for (let i = obstacles.length -1 ; i>= 0; i--) {
+        
+        const obstacle = obstacles[i];      
+        
+        const obstacleToRemove = obstacle.x + obstacle.width <= 0;
+
+        if (obstacleToRemove) {
+            removeObstacle(i);
+        }
+        
+    }
 }
 
 const player = createPlayer();
