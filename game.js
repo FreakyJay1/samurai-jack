@@ -5,13 +5,23 @@ let spawnTimer  =0;
 let frameId =null;
 const countedObstacles  =new Set();
 const HITBOX_MARGIN=4;
-const SPAWN_INTERVAL = 2;    
+const SPAWN_INTERVAL = 1.5 ;    
 const MAX_DT = 0.05;  
 
 function startGame(){
+    if(isRunning) return;
+
+    score = 0;
+    spawnTimer = 0;
+    countedObstacles.clear();
+
+    resetPlayer();
+    resetObstacles();
+    updateScore(0);
+
+    hideScreens();
     isRunning = true;
     lastTime = performance.now();
-    hideScreens();
     frameId = requestAnimationFrame(gameLoop);
 }
 function isColliding(a,b){
@@ -28,11 +38,41 @@ function gameLoop(timestamp){
     lastTime = timestamp;
 
     updatePlayer(dt);
-    // updateObstacles(dt);
+    updateObstacles(dt);
+
+   const playerBox = player.getBoundingClientRect();
+    for(const obstacle of obstacles){
+        const obstacleBox = obstacle.element.getBoundingClientRect();
+
+        if(isColliding(playerBox, obstacleBox)){
+            gameOver();
+            return;
+        }
+
+        if(obstacleBox.right < playerBox.left && !countedObstacles.has(obstacle)){
+            countedObstacles.add(obstacle);
+            score++;
+            updateScore(score);
+        }
+    }
+
+
+     spawnTimer += dt;
+    if(spawnTimer >= SPAWN_INTERVAL){
+        spawnTimer -= SPAWN_INTERVAL;
+        createObstacle();
+    }
 
     if(isRunning){
         frameId = requestAnimationFrame(gameLoop);
     }
 }
+
+function gameOver(){
+    isRunning = false;
+    cancelAnimationFrame(frameId);
+    showGameOver(score);
+}
+
 setupControls({ onJump: jump, onStart: startGame });
 showStartScreen();

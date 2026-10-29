@@ -50,6 +50,50 @@ function updatePlayer(dt){
     player.style.bottom = `${playerY}px`;
 
 }
+<<<<<<< Updated upstream
+=======
+function updateObstacles(dt) {
+    obstacles.forEach(obstacle =>{
+        obstacle.x -= obstacleSpeed * dt;
+        obstacle.element.style.left = `${obstacle.x}px`
+    });
+}
+
+function removeObstacle(index) {
+    const obstacle = obstacles[index];
+
+    obstacle.element.remove();
+    
+    obstacles.splice(index,1);
+
+}
+
+function cleanUpObstacles() {
+    
+    for (let i = obstacles.length -1 ; i>= 0; i--) {
+        
+        const obstacle = obstacles[i];      
+        
+        const obstacleToRemove = obstacle.x + obstacle.width <= 0;
+
+        if (obstacleToRemove) {
+            removeObstacle(i);
+        }
+        
+    }
+}
+function resetPlayer(){
+    playerY = 0;
+    velocityY = 0;
+    player.style.bottom = "0px";
+}
+
+function resetObstacles(){
+    for (let i = obstacles.length - 1; i >= 0; i--) {
+        removeObstacle(i);
+    }
+}
+>>>>>>> Stashed changes
 
 const player = createPlayer();
 const obstacle = createObstacle();
