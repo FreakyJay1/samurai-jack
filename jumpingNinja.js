@@ -1,4 +1,6 @@
 const gameArea = document.querySelector("#game-area");
+const obstacles = [];
+const obstacleSpeed = 250; 
 
 let playerY = 0;
 let velocityY = 0;
@@ -22,10 +24,20 @@ function createPlayer(){
 }
 
 function createObstacle(){
-   const obstacle = document.createElement("div");
+   const element = document.createElement("div");
 
-   obstacle.classList.add("obstacle");
-   gameArea.appendChild(obstacle);
+   element.classList.add("obstacle");
+   gameArea.appendChild(element);
+   
+   const obstacle ={
+    element: element,
+    x: gameArea.clientWidth,
+    width: 25
+   }
+
+   obstacles.push(obstacle);
+
+   element.style.left = `${obstacle.x}px`
 
    return obstacle;
 }
