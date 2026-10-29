@@ -26,12 +26,8 @@
 
 .obstacle{
     position: absolute;
-
     width: 25px;
     height: 45px;
-
-    right: 0;
     bottom: 0;
-
     background-color: #15803d;
 }
