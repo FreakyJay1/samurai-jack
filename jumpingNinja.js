@@ -92,6 +92,17 @@ function cleanUpObstacles() {
         
     }
 }
+function resetPlayer(){
+    playerY = 0;
+    velocityY = 0;
+    player.style.bottom = "0px";
+}
+
+function resetObstacles(){
+    for (let i = obstacles.length - 1; i >= 0; i--) {
+        removeObstacle(i);
+    }
+}
 
 const player = createPlayer();
 const obstacle = createObstacle();
