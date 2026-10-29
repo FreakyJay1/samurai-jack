@@ -50,8 +50,6 @@ function updatePlayer(dt){
     player.style.bottom = `${playerY}px`;
 
 }
-<<<<<<< Updated upstream
-=======
 function updateObstacles(dt) {
     obstacles.forEach(obstacle =>{
         obstacle.x -= obstacleSpeed * dt;
@@ -93,7 +91,6 @@ function resetObstacles(){
         removeObstacle(i);
     }
 }
->>>>>>> Stashed changes
 
 const player = createPlayer();
 const obstacle = createObstacle();
