@@ -1,11 +1,14 @@
 const gameArea = document.querySelector("#game-area");
 const obstacles = [];
-const obstacleSpeed = 250; 
+const BASE_SPEED = 250;
+const SPEED_INCREASE = 30;
+const MAX_SPEED = 550;
+const GRAVITY = 2400;
+const JUMP_STRENGTH = 650;
 
 let playerY = 0;
 let velocityY = 0;
 
-const gravity = 1800;
 
 function createPlayer(){
     
@@ -45,12 +48,12 @@ function createObstacle(){
 function jump(){
 
     if(playerY === 0){
-        velocityY = 600;
+        velocityY = JUMP_STRENGTH;
     }
 }
 
 function updatePlayer(dt){
-    velocityY -= gravity * dt;
+    velocityY -= GRAVITY * dt;
 
     playerY += velocityY * dt;
 
@@ -62,20 +65,25 @@ function updatePlayer(dt){
     player.style.bottom = `${playerY}px`;
 
 }
-function updateObstacles(dt) {
+function updateObstacles(dt,score) {
+     const speed = getObstacleSpeed(score);
     obstacles.forEach(obstacle =>{
-        obstacle.x -= obstacleSpeed * dt;
+        obstacle.x -= speed * dt;
         obstacle.element.style.left = `${obstacle.x}px`
     });
 }
 
-function removeObstacle(index) {
+function removeObstacle(index, onRemoved) {
     const obstacle = obstacles[index];
 
-    obstacle.element.remove();
-    
-    obstacles.splice(index,1);
+    if (!obstacle) return;
 
+    obstacle.element.remove();
+    obstacles.splice(index, 1);
+
+    if (onRemoved) {
+        onRemoved(obstacle);
+    }
 }
 
 function cleanUpObstacles() {
@@ -104,5 +112,12 @@ function resetObstacles(){
     }
 }
 
+function getObstacleSpeed(score) {
+    return Math.min(
+        BASE_SPEED + score * SPEED_INCREASE,
+        MAX_SPEED
+    );
+}
+
 const player = createPlayer();
-const obstacle = createObstacle();
+
