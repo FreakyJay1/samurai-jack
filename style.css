@@ -28,7 +28,7 @@
 :root[data-theme="dark"] {
   --bg: #120a22;
   --ink: #f1e8ff;
-  --accent: #ff4f8f;
+  --accent: #0e0a0b;
   --sky-top: #5b2a86;
   --sky-bottom: #ff7a59;
   --ground: #0b0518;
@@ -146,15 +146,23 @@ footer {
   pointer-events: none;
 }
 
+
 .obstacle {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: var(--obstacle-w);
-  height: 40px;
-  background: var(--accent);
-  border-radius: 4px 4px 0 0;
+    position: absolute;
+    bottom: 0;
+
+    width: var(--obstacle-w);
+    height: 40px;
+
+    background-color: rgb(238, 238, 9);
+
+    clip-path: polygon(
+        50% 0%,
+        0% 100%,
+        100% 100%
+    );
 }
+
 
 #score {
   position: absolute;
