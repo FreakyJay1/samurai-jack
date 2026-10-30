@@ -39,6 +39,7 @@ function gameLoop(timestamp){
 
     updatePlayer(dt);
     updateObstacles(dt);
+    cleanUpObstacles();
 
    const playerBox = player.getBoundingClientRect();
     for(const obstacle of obstacles){
