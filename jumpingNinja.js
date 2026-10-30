@@ -1,13 +1,14 @@
 const gameArea = document.querySelector("#game-area");
 const obstacles = [];
 const BASE_SPEED = 250;
-const SPEED_INCREASE = 20;
+const SPEED_INCREASE = 30;
 const MAX_SPEED = 550;
+const GRAVITY = 2400;
+const JUMP_STRENGTH = 650;
 
 let playerY = 0;
 let velocityY = 0;
 
-const gravity = 1800;
 
 function createPlayer(){
     
@@ -47,12 +48,12 @@ function createObstacle(){
 function jump(){
 
     if(playerY === 0){
-        velocityY = 600;
+        velocityY = JUMP_STRENGTH;
     }
 }
 
 function updatePlayer(dt){
-    velocityY -= gravity * dt;
+    velocityY -= GRAVITY * dt;
 
     playerY += velocityY * dt;
 
