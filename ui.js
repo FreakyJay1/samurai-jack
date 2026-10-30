@@ -4,6 +4,7 @@ const startScreen = document.getElementById('start-screen');
 const gameOverScreen = document.getElementById('game-over-screen');
 const finalScoreEl = document.getElementById('final-score');
 const highScoreEl = document.getElementById('high-score');
+const startButton = document.getElementById('startBtn');
 
 function updateScore(score) {
   scoreEl.textContent = score;
@@ -63,4 +64,6 @@ function setupControls({ onJump, onStart }) {
     }
   });
   gameBox.addEventListener('pointerdown', act);
+  startButton.addEventListener('click', onStart);
 }
+
