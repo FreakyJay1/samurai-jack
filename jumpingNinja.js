@@ -1,9 +1,9 @@
 const gameArea = document.querySelector("#game-area");
 const obstacles = [];
 const BASE_SPEED = 250;
-const SPEED_INCREASE = 30;
+const SPEED_INCREASE = 10;
 const MAX_SPEED = 550;
-const GRAVITY = 2400;
+const GRAVITY = 1800;
 const JUMP_STRENGTH = 650;
 
 let playerY = 0;
