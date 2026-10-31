@@ -5,8 +5,8 @@ let spawnTimer = 0;
 let frameId = null;
 const countedObstacles = new Set();
 const HITBOX_MARGIN = 4;
-const TARGET_OBSTACLE_SPACING = 600;
-const MAX_DT = 0.05;
+const TARGET_OBSTACLE_SPACING = 375;
+const MAX_DT = 0.09;
 
 
 function startGame() {
@@ -53,8 +53,6 @@ function gameLoop(timestamp) {
         countedObstacles.delete(obstacle);
     });
     
-    spawnTimer += dt;
-
     updateObstacleSpawner(dt);
 
     if (isRunning) {
