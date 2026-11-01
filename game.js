@@ -77,3 +77,6 @@ function gameOver(){
 
 setupControls({ onJump: jump, onStart: startGame });
 showStartScreen();
+
+
+//use canvas element in html 
