@@ -50,20 +50,41 @@ function shakeGame() {
 }
 
 function setupControls({ onJump, onStart }) {
-  function isPlaying() {
-    return startScreen.classList.contains('hidden') && gameOverScreen.classList.contains('hidden');
-  }
-  function act() {
-    if (isPlaying()) onJump();
-    else onStart();
-  }
-  document.addEventListener('keydown', function (e) {
-    if (e.code === 'Space' || e.code === 'ArrowUp' || e.code === 'KeyW') {
-      e.preventDefault();
-      if (!e.repeat) act();
+
+    function isPlaying() {
+        return (
+            startScreen.classList.contains("hidden") &&
+            gameOverScreen.classList.contains("hidden")
+        );
     }
-  });
-  gameBox.addEventListener('pointerdown', act);
-  startButton.addEventListener('click', onStart);
+
+    function handleKeyDown(event) {
+        const isJumpKey =
+            event.code === "Space" ||
+            event.code === "ArrowUp" ||
+            event.code === "KeyW";
+
+        if (!isJumpKey) return;
+
+        event.preventDefault();
+
+        if (event.repeat) return;
+
+        if (!isPlaying()) return;
+
+        console.log("Keyboard requested jump");
+
+        onJump();
+    }
+
+    function handleStartClick() {
+        onStart();
+        startButton.blur();
+    }
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    startButton.addEventListener("click", handleStartClick);
 }
+
 
