@@ -72,8 +72,6 @@ function setupControls({ onJump, onStart }) {
 
         if (!isPlaying()) return;
 
-        console.log("Keyboard requested jump");
-
         onJump();
     }
 

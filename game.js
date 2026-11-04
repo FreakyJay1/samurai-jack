@@ -5,15 +5,17 @@ let spawnTimer = 0;
 let frameId = null;
 const countedObstacles = new Set();
 const HITBOX_MARGIN = 4;
-const TARGET_OBSTACLE_SPACING = 375;
+const MIN_OBSTACLE_SPACING = 450;
+const MAX_OBSTACLE_SPACING = 700;
+let nextSpawnInterval = getSpawnInterval(0);
 const MAX_DT = 0.09;
-
 
 function startGame() {
     if (isRunning) return;
 
     score = 0;
     spawnTimer = 0;
+    nextSpawnInterval = getSpawnInterval(0);
     countedObstacles.clear();
 
     resetPlayer();
@@ -103,21 +105,28 @@ function passedObstacles() {
     
 }
 
-function getSpawnInterval(score) {
-   const speed = getObstacleSpeed(score)
+function getRandomSpacing(){
+   return Math.random() * (MAX_OBSTACLE_SPACING - MIN_OBSTACLE_SPACING) + MIN_OBSTACLE_SPACING;
+}
 
-   return TARGET_OBSTACLE_SPACING / speed;
+function getSpawnInterval(score) {
+   
+   const speed = getObstacleSpeed(score)
+   const spacing = getRandomSpacing();
+   const interval = spacing / speed;
+
+   return interval;
 }
 
 function updateObstacleSpawner(dt) {
 
     spawnTimer += dt;
 
-    const spawnInterval = getSpawnInterval(score);
-
-    if (spawnTimer >= spawnInterval) {
-        spawnTimer -= spawnInterval
+    if (spawnTimer >= nextSpawnInterval) {
+        spawnTimer -= nextSpawnInterval
         createObstacle();
+
+        nextSpawnInterval = getSpawnInterval(score);
     }  
 }
 
@@ -130,5 +139,3 @@ function gameOver() {
 setupControls({ onJump: jump, onStart: startGame });
 showStartScreen();
 
-
-//use canvas element in html 
